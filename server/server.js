@@ -1,5 +1,5 @@
 const express = require('express');
-const sequelize = require('./config/db'); 
+const sequelize = require('./config/db');
 const app = express();
 const body_parser = require('body-parser');
 const envVariables = require('./config/env');
