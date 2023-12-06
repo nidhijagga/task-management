@@ -1,10 +1,12 @@
-
+import React from "react";
+import Layout from "./components/Layout";
+import AppRoutes from "./routes";
 function App() {
   return (
     <div className="App">
-     <div className="text-blue-900">
-      hello world
-     </div>
+      <Layout>
+        <AppRoutes />
+      </Layout>
     </div>
   );
 }
