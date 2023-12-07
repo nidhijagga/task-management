@@ -44,14 +44,46 @@ const SignUp = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+  
     if (validateInputs()) {
-      console.log('Sign Up form submitted');
+      try {
+        const response = await fetch('http://localhost:5000/auth/signup', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password,
+            phone: formData.phone,
+          }),
+        });
+  
+        if (!response.ok) {
+          const errorMessage = await response.text();
+          alert(`Sign Up failed: ${errorMessage}`);
+        } else {
+          const data = await response.json();
+          console.log('Sign Up successful:', data);
+          setFormData({
+            email: '',
+            password: '',
+            phone: '',
+          });
+  
+          alert('Sign Up successful!');
+        }
+      } catch (error) {
+        alert('An error occurred during Sign Up:', error.message);
+      }
     } else {
-      console.log('Form has validation errors');
+      alert('Form has validation errors');
     }
   };
+  
+  
 
   return (
     <motion.div
