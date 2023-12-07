@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useDispatch } from 'react-redux';
+import { loginSuccess } from '../redux/slices/authSlice';
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -61,12 +68,14 @@ const Login = () => {
         } else {
           const data = await response.json();
           console.log("Login successful:", data);
+          dispatch(loginSuccess({ token: data.token }));
           setFormData({
             email: "",
             password: "",
           });
 
           alert("Login successful!");
+          navigate("/private/tasklist");
         }
       } catch (error) {
         console.error("An error occurred during login:", error.message);
