@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
 
-  const dispatch = useDispatch();
-  const naviagte = useNavigate();
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -74,7 +71,6 @@ const SignUp = () => {
         } else {
           const data = await response.json();
           console.log('Sign Up successful:', data);
-          dispatch(loginSuccess({ token: data.token }));
           setFormData({
             email: '',
             password: '',
@@ -82,7 +78,7 @@ const SignUp = () => {
           });
   
           alert('Sign Up successful!');
-          naviagte("/private/task-list");
+          navigate('/login');
         }
       } catch (error) {
         alert('An error occurred during Sign Up:', error.message);
