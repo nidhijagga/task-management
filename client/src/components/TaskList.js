@@ -56,7 +56,7 @@ const TaskList = () => {
       <h2 className="text-3xl font-bold mb-4 text-center text-indigo-600">Task List</h2>
 
       <Link
-        to="/create-task"
+        to="/private/create-task"
         className="block text-center mb-4 bg-indigo-500 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition-all"
       >
         Create New Task
@@ -74,27 +74,29 @@ const TaskList = () => {
               <p className={`text-${task.completed ? 'green' : 'red'}-500 mt-2`}>
                 Status: {task.completed ? 'Completed' : 'Not Completed'}
               </p>
-              <div className="flex justify-end mt-4">
-                <Link
-                  to={`/edit-task/${task.id}`}
-                  className="text-indigo-500 hover:text-indigo-700 mr-4"
-                >
-                  Edit
-                </Link>
+              <div className="flex justify-between items-center mt-4">
                 <button
                   onClick={() => toggleStatus(task.id)}
                   className={`${
-                    task.completed ? 'bg-green-500' : 'bg-red-500'
-                  } text-white py-2 px-4 rounded-md hover:bg-opacity-75 transition-all`}
+                    task.completed ? 'bg-blue-300' : 'bg-purple-500'
+                  } text-white py-2 px-4 rounded-md hover:bg-blue-500 transition-all`}
                 >
                   {task.completed ? 'Mark Incomplete' : 'Mark Complete'}
                 </button>
-                <button
-                  onClick={() => deleteTask(task.id)}
-                  className="text-red-500 hover:text-red-700 ml-4"
-                >
-                  Delete
-                </button>
+                <div className="space-x-2">
+                  <Link
+                    to={`/edit-task/${task.id}`}
+                    className="text-purple-500 hover:text-blue-500"
+                  >
+                    Edit
+                  </Link>
+                  <button
+                    onClick={() => deleteTask(task.id)}
+                    className="text-red-500 hover:text-red-700"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </li>
           ))}

@@ -82,7 +82,7 @@ const SignUp = () => {
           });
   
           alert('Sign Up successful!');
-          naviagte("/private/tasklist")
+          naviagte("/private/task-list");
         }
       } catch (error) {
         alert('An error occurred during Sign Up:', error.message);

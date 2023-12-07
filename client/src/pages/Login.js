@@ -75,7 +75,7 @@ const Login = () => {
           });
 
           alert("Login successful!");
-          navigate("/private/tasklist");
+          navigate("/private/task-list");
         }
       } catch (error) {
         console.error("An error occurred during login:", error.message);
