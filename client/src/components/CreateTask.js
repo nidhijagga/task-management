@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { fetchTasksAsync  } from '../redux/slices/taskSlice';
+import { useDispatch } from "react-redux";
+
 const CreateTask = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [newTask, setNewTask] = useState({
     title: "",
     description: "",
@@ -14,7 +20,6 @@ const CreateTask = () => {
     dueDate: "",
   });
 
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,7 +63,7 @@ const CreateTask = () => {
         console.error(`Failed to create task: ${errorMessage}`);
       } else {
         console.log("New Task created successfully!");
-
+        dispatch(fetchTasksAsync());
         navigate("/private/task-list");
       }
     } catch (error) {
