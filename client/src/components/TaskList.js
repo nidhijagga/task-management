@@ -7,6 +7,7 @@ import {
   selectTasks,
   selectTasksStatus,
   toggleTaskStatusAsync,
+  deleteTaskAsync,
 } from "../redux/slices/taskSlice";
 
 const TaskList = () => {
@@ -27,6 +28,10 @@ const TaskList = () => {
   const formatDate = (dateString) => {
     const options = { year: "numeric", month: "long", day: "numeric" };
     return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  const deleteTask = (taskId) => {
+    dispatch(deleteTaskAsync(taskId));
   };
 
   return (
@@ -98,7 +103,7 @@ const TaskList = () => {
                     Edit
                   </Link>
                   <button
-                    // onClick={() => deleteTask(task.id)}
+                    onClick={() => deleteTask(task.id)}
                     className="text-red-500 hover:text-red-700"
                   >
                     Delete

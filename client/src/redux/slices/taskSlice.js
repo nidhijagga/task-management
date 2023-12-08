@@ -85,6 +85,29 @@ export const updateTaskAsync = createAsyncThunk(
   }
 );
 
+export const deleteTaskAsync = createAsyncThunk(
+  "tasks/deleteTask",
+  async (taskId, { getState, rejectWithValue }) => {
+    try {
+      const token = getState().auth.token;
+      const response = await fetch(`http://localhost:5000/task/delete/${taskId}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      if (!response.ok) {
+        const errorMessage = await response.text();
+        return rejectWithValue(`Failed to delete task: ${errorMessage}`);
+      }
+
+      return taskId; // Return the deleted task ID
+    } catch (error) {
+      return rejectWithValue(`Failed to delete task: ${error.message}`);
+    }
+  }
+);
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -120,6 +143,11 @@ const tasksSlice = createSlice({
         state.tasks = state.tasks.map((task) =>
           task.id === updatedTask.id ? updatedTask : task
         );
+      })
+      .addCase(deleteTaskAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const deletedTaskId = action.payload;
+        state.tasks = state.tasks.filter((task) => task.id !== deletedTaskId);
       });
   },
 });

@@ -5,6 +5,7 @@ const {
   createTaskForUser,
   toggleTaskStatus,
   editTaskForUser,
+  deleteTaskForUser,
 } = require("../controllers/taskController");
 const authenticate = require("../middleware/auth");
 
@@ -13,5 +14,7 @@ router.post("/post", authenticate, createTaskForUser);
 
 router.put("/toggle/:id", authenticate, toggleTaskStatus);
 router.put("/edit/:id", authenticate, editTaskForUser);
+
+router.delete("/delete/:id", authenticate, deleteTaskForUser);
 
 module.exports = router;
