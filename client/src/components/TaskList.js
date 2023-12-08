@@ -24,6 +24,11 @@ const TaskList = () => {
     dispatch(toggleTaskStatusAsync(taskId, { completed }));
   };
 
+  const formatDate = (dateString) => {
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: -50 }}
@@ -53,11 +58,16 @@ const TaskList = () => {
                 {task.title}
               </h3>
               <p className="text-gray-700">{task.description}</p>
-              <p className="text-gray-600 mt-2">Due Date: {task.dueDate}</p>
+              <p className="text-gray-600 mt-2">
+                Due Date: {formatDate(task.dueDate)}
+              </p>
               <p
-                className={`text-${task.status === "Completed" ? "green" : "red"}-500 mt-2`}
+                className={`text-${
+                  task.status === "Completed" ? "green" : "red"
+                }-500 mt-2`}
               >
-                Status: {task.status === "Completed" ? "Completed" : "Not Completed"}
+                Status:{" "}
+                {task.status === "Completed" ? "Completed" : "Not Completed"}
               </p>
               <div className="flex justify-between items-center mt-4">
                 <button
@@ -82,7 +92,7 @@ const TaskList = () => {
 
                 <div className="space-x-2">
                   <Link
-                    to={`/edit-task/${task.id}`}
+                    to={`/private/edit-task/${task.id}`}
                     className="text-purple-500 hover:text-blue-500"
                   >
                     Edit

@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import TaskList from "../components/TaskList";
 import CreateTask from "../components/CreateTask";
+import EditTask from "../components/EditTask";
 import Private from "../components/PrivateRoute";
 import { Navigate } from "react-router-dom";
 import Layout from "../components/Layout";
@@ -21,6 +22,9 @@ const AppRoutes = () => {
         <Route path="/private" element={<Private />}>
           <Route path="task-list" element={<TaskList />} />
           <Route path="create-task" element={<CreateTask />} />
+          <Route path="edit-task" >
+            <Route path=":id" element={<EditTask/>}/>
+          </Route>
         </Route>
       </Routes>
     </Suspense>
